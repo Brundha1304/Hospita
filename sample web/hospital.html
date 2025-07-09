@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hospital Management</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: lightgray;
+    }
+
+    header {
+      background-color: #007BFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      color: white;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .enquiry-btn {
+      background-color: white;
+      color: #007BFF;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .enquiry-btn:hover {
+      background-color: #e0e0e0;
+    }
+    .banner-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 400px;
+    }
+
+    .slider {
+      display: flex;
+      width: 300%; /* 3 images = 100% x 3 */
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      flex: 0 0 100%;
+      position: relative;
+    }
+
+    .slide img {
+      width: 40%;
+      height: 400px;
+      object-fit: cover;
+    }
+    .slide-text {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+     .slide:hover .slide-text {
+      opacity: 1;
+    }
+    .slide-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 40px;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide:hover .slide-overlay {
+            transform: translateY(0);
+        }
+
+    .dots {
+      text-align: center;
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .dot {
+      height: 12px;
+      width: 12px;
+      margin: 0 5px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background-color: #007BFF;
+    }
+
+    .clickable-box {
+      flex: 0 0 300px;
+      height: 80px;
+      background-color: #ffffff;
+      border: 2px solid #007BFF;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      color: #007BFF;
+      font-size: 18px;
+      font-weight: 600;
+      transition: 0.3s;
+      margin: 30px;
+      padding: 10px;
+    }
+
+    .clickable-box:hover {
+      background-color: #007BFF;
+      color: white;
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+     .carousel-container {
+      width: fit-content;
+      margin: auto;
+      overflow: hidden;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+.card {
+  width: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background-color: white;
+  transition: 0.3s ease;
+}
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+  gap: 10px;
+  justify-items: center;
+  width: 80px;
+  height: 750px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 15px;
+}
+
+
+.card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.card-desc {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+button {
+  padding: 8px 12px;
+  background-color: darkgreen;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color:brown;
+}
+
+.hidden {
+  display: none;
+}
+      .container-row {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      border-radius: 10px;
+
+    }
+
+    
+
+    .poster {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      justify-content: center;
+      gap: 25px;
+      margin: 10px;
+      flex: 20px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .box {
+      flex: 25px;
+      height: 200px;
+      margin-right: 5px;
+      flex-shrink: 0;
+      border-radius: 4px;
+      overflow: hidden;
+      background-color: #007BFF;
+    }
+
+    .box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .pdots {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    .pdot {
+      height: 10px;
+      width: 10px;
+      background-color: #bbb;
+      border-radius: 50%;
+      margin: 0 5px;
+      transition: all 0.3s ease;
+    }
+
+    .pdot.active {
+      width: 20px;
+      background-color: #007BFF;
+    }
+       .treat {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      justify-content: center;
+      gap: 25px;
+      margin: 10px;
+      flex: 25px;
+    }
+     .tdots {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    .tdot {
+      height: 10px;
+      width: 10px;
+      background-color: #bbb;
+      border-radius: 50%;
+      margin: 0 5px;
+      transition: all 0.3s ease;
+    }
+
+    .tdot.active {
+      width: 20px;
+      background-color: #007BFF;
+    }
+        
+     .info-container {
+      background: #ffffff;
+      padding: 20px 30px;
+      max-width: 1300px;
+      height: 400px;
+      justify-content: center;
+     background-color: lightblue;
+     margin: 30px;
+     border-radius: 20px;
+    }
+
+    .info-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .info-text {
+      flex: 1;
+      font-size: 16px;
+      color: #333;
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+
+    .info-image {
+      flex: 1;
+      width: 200px;
+      height: 300px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin: 10px;
+    }
+
+    @media (max-width: 700px) {
+      .info-body {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .info-text {
+        padding-left: 0;
+        margin-top: 15px;
+      }
+    }
+   
+    .container {
+      display: flex;
+      width: 1250px;
+      height: 400px;
+      padding: 20px;
+      box-sizing: border-box;
+      gap: 20px;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .main-video {
+      flex: 1;
+    }
+
+    .main-video iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .side-videos {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .small-video-container {
+      display: flex;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 32%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .small-video-container iframe {
+      width: 40%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-text {
+      padding: 10px;
+      width: 60%;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+    }
+       .get-in-touch-box {
+      width: 250px;
+      background-color: #e50914;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      padding: 15px 0;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 10px;
+      margin: 40px auto 0 auto;
+      position: relative;
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    .main-container {
+      background-color: #1c1e22;
+      color: white;
+      margin: -25px auto 0 auto; /* to overlap the red box */
+      padding: 60px 20px 30px 20px;
+      max-width: 1250px;
+      border-radius: 8px;
+      z-index: 1;
+      position: relative;
+    }
+     .call-number {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 30px;
+      font-weight: bold;
+    }
+     .call-number span {
+      font-size: 24px;
+      display: block;
+      margin-top: 5px;
+      cursor: pointer;
+    }
+     .columns {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      cursor: pointer;
+     }
+        .column {
+      flex: 1 1 250px;
+      margin: 10px;
+    }
+    .column h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .column ul {
+      list-style: none;
+    }
+
+    .column ul li {
+      font-size: 15px;
+      color: #d9d9d9;
+      margin-bottom: 10px;
+    }
+    .footer {
+      background-color:  #1c1e22;
+      color: white;
+      padding: 20px 40px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 15px;
+    }
+
+    .footer-top div {
+      margin: 10px 0;
+      font-size: 15px;
+    }
+
+    .footer-mid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding-top: 20px;
+    }
+
+    .footer-column {
+      flex: 1;
+      min-width: 220px;
+      margin-bottom: 20px;
+    }
+
+    .footer-column h3 {
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    .feedback-box {
+      border: 1px solid white;
+      padding: 15px;
+      margin-top: 20px;
+      font-size: 14px;
+      max-width: 320px;
+    }
+
+    .connected h3 {
+      font-size: 20px;
+    }
+
+    .connected h3 span {
+      color: #ffcc00;
+    }
+
+    .connected p {
+      font-size: 14px;
+      margin: 10px 0;
+    }
+
+    .email-box {
+      display: flex;
+      margin-bottom: 15px;
+    }
+
+    .email-box input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 25px 0 0 25px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .email-box button {
+      background-color: orange;
+      border: none;
+      padding: 0 20px;
+      border-radius: 0 25px 25px 0;
+      cursor: pointer;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-icons i {
+      font-size: 20px;
+      color: white;
+      background-color: #0077b5;
+      padding: 8px;
+      border-radius: 50%;
+    }
+
+    .footer-bottom {
+      background-color: #000;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 13px;
+      width: 1150px;
+    }
+
+   
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="C:\Users\admin\OneDrive\Desktop\sample web\images\ChatGPT Image Jun 21, 2025, 03_05_56 PM.png" alt="Logo" style="height:40px;">
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">About Us</a>
+      <a href="#">Hospitals</a>
+      <a href="#">Treatments</a>
+      <a href="#">Services</a>
+      <button class="enquiry-btn">Enquiry</button>
+    </nav>
+  </header>
+  <div class="banner-container">
+    <div class="slider" id="slider">
+      <div class="slide">
+        <img src="C:\Users\admin\OneDrive\Desktop\sample web\images\slide 2.jpg" alt="Slide 1">
+        <div class="slide-text">Welcome to Our Hospital Network</div>
+      </div>
+      <div class="slide">
+        <img src="C:\Users\admin\OneDrive\Desktop\sample web\images\sli.jpg" alt="Slide 2"> 
+        <div class="slide-text">We Provide 24/7 Emergency Services</div>
+      </div>
+      <div class="slide">
+        <img src="C:\Users\admin\OneDrive\Desktop\sample web\images\slid.webp" alt="Slide 3">
+        <div class="slide-text">Book Your Health Checkup Today</div>
+      </div>
+    </div>
+    <div class="slide-overlay">
+                        <div class="slide-title">Expert Medical Team</div>
+                        <div class="slide-description">Dedicated professionals providing personalized care with years of medical expertise</div>
+                    </div>
+    <div class="dots">
+      <span class="dot active" onclick="currentSlide(0)"></span>
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+    </div>
+
+
+  </div>
+    <div class="container-row">
+    <a href="https://example.com/page1" class="clickable-box"><div>Need a help for Ordering</div>
+      <small>Get a call back</small>
+    </a>
+
+    <a href="https://example.com/page2" class="clickable-box">
+      <div>Get Free Second Opinion</div>
+      <small>Call +91-8984900900</small>
+    </a>
+  </div>
+
+  <div><h2 style="text-align: center; color: blue;">Services</h2></div>
+  <div class="card-container">
+   
+  <!-- Card 1 -->
+  <div class="card">
+    <img src="C:\Users\admin\OneDrive\Desktop\sample web\images\s4.jpg" class="card-img" alt="...">
+    <div class="card-content">
+      <h3 class="card-title">Emergency Care</h3>
+      <p class="card-desc short">Emergency departments handle life-threatening conditions such as heart attacks, </p>
+      <p class="card-desc full hidden">Emergency departments handle life-threatening conditions such as heart attacks, strokes, accidents, severe bleeding, or breathing difficulties. They operate 24/7 with specially trained doctors, nurses, trauma teams, and rapid diagnostic tools to provide immediate medical intervention.</p>
+      <button onclick="toggleDescription(this)">See More</button>
+    </div>
+  </div>
+
+  <!-- Repeat the same structure for 7 more cards -->
+  <!-- Card 2 -->
+  <div class="card">
+    <img src="C:\Users\admin\OneDrive\Desktop\sample web\images\s7.jpg" class="card-img" alt="...">
+    <div class="card-content">
+      <h3 class="card-title">Endoscopy  Services</h3>
+      <p class="card-desc short">Minimally invasive procedures using a camera to examine </p>
+      <p class="card-desc full hidden"> Minimally invasive procedures using a camera to examine the digestive tract, helping detect ulcers, tumors, or bleeding.</p>
+      <button onclick="toggleDescription(this)">See More</button>
+    </div>
+    </div>
+  <!--<div class="card-container"> Card 1 -->
+  <div class="card">
+    <img src="C:\Users\admin\OneDrive\Desktop\sample web\images\s2.jpg" class="card-img" alt="Mountain View">
+    <div class="card-content">
+      <h3 class="card-title">Impatient care</h3>
+      <p class="card-desc short">When a patient’s condition requires constant monitoring, surgery, or extended.</p>
+      <p class="card-desc full hidden">When a patient’s condition requires constant monitoring, surgery, or extended treatment, they are admitted into the hospital. Inpatient care ensures round-the-clock attention and access to multidisciplinary teams</p>
+.</p>
+      <button onclick="toggleDescription(this)">See More</button>
+    </div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="card">
+    <img src="C:\Users\admin\OneDrive\Desktop\sample web\images\s3.jpeg" class="card-img" alt="Forest Walk">
+    <div class="card-content">
+      <h3 class="card-title">General Medicine</h3>
+      <p class="card-desc short">Focuses on diagnosing and treating a wide range of common illnesses like fever, flu, </p>
+      <p class="card-desc full hidden">Focuses on diagnosing and treating a wide range of common illnesses like fever, flu, infections, diabetes, and blood pressure. It's often the first point of contact for most health issues.</p>
+      <button onclick="toggleDescription(this)">See More</button>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="card">
+    <img src="C:\Users\admin\OneDrive\Desktop\sample web\images\s5.jpeg" class="card-img" alt="Ocean Sunset">
+    <div class="card-content">
+      <h3 class="card-title">Laboratory Tests</h3>
+      <p class="card-desc short">Includes blood tests (CBC, glucose), urine tests, biopsies, cultures, and </p>
+      <p class="card-desc full hidden">Includes blood tests (CBC, glucose), urine tests, biopsies, cultures, and pathology services. Lab results assist in diagnosing diseases and monitoring treatments.</p>
+      <button onclick="toggleDescription(this)">See More</button>
+    </div>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="card">
+    <img src= "C:\Users\admin\OneDrive\Desktop\sample web\images\s6.jpeg"class="card-img" alt="Desert Adventure">
+    <div class="card-content">
+      <h3 class="card-title">Diagnostic imaging</h3>
+      <p class="card-desc short">Modern hospitals use advanced imaging tools</p>
+      <p class="card-desc full hidden">Modern hospitals use advanced imaging tools to detect diseases, guide treatments, and monitor recovery. Trained radiologists interpret the results for accurate diagnosis.</p>
+      <button onclick="toggleDescription(this)">See More</button>
+    </div>
+  </div>
+
+  <!-- Card 5 -->
+  <div class="card">
+    <img src="C:\Users\admin\OneDrive\Desktop\sample web\images\s9.jpeg" class="card-img" alt="diagnostic imaging">
+    <div class="card-content">
+      <h3 class="card-title">Nutrition & Dietetics</h3>
+      <p class="card-desc short">Offers personalized diet plans for patients with diabetes, heart</p>
+      <p class="card-desc full hidden"> Offers personalized diet plans for patients with diabetes, heart conditions, obesity, or post-surgery recovery to enhance healing and well-being.</p>
+      <button onclick="toggleDescription(this)">See More</button>
+    </div>
+  </div>
+
+  <!-- Card 6 -->
+  <div class="card">
+    <img src= "C:\Users\admin\OneDrive\Desktop\sample web\images\s8.png" class="card-img" alt="Countryside Calm">
+    <div class="card-content">
+      <h3 class="card-title">Physiotherapy</h3>
+      <p class="card-desc short">Helps patients regain mobility and strength after injuries, surgeries, or </p>
+      <p class="card-desc full hidden"> Helps patients regain mobility and strength after injuries, surgeries, or paralysis through exercises, stretches, and physical therapy machines.</p>
+      <button onclick="toggleDescription(this)">See More</button>
+    </div>
+  </div>
+</div>
+
+  <div><h2 style="padding-left: 20px; color: blue; text-align: center; ">Hospitals </h2></div>
+  <div class="poster"  style="flex: 50px;">
+  <div class="poster" id="poster">
+    <div class="box"><img src="C:\Users\admin\OneDrive\Desktop\sample web\images\aiims.jpeg" alt="1"></div>
+    <div class="box"><img src="C:\Users\admin\OneDrive\Desktop\sample web\images\Apollo-DRDO-Hospitals-Kanchanbagh-Hyderabad_NHT.jpg" alt="2"></div>
+    <div class="box"><img src="C:\Users\admin\OneDrive\Desktop\sample web\images\aster.jpg" alt="3"></div>
+    <div class="box"><img src="C:\Users\admin\OneDrive\Desktop\sample web\images\apollo-hospitals_bannerghatta_road_building-min_0.webp" alt="4"></div>
+    <div class="box"><img src="C:\Users\admin\OneDrive\Desktop\sample web\images\apollo.webp" alt="5"></div>
+  </div>
+</div>
+
+<div class="pdots" id="dotsContainer">
+  <span class="pdot active"></span>
+  <span class="pdot"></span>
+  <span class="pdot"></span>
+  <span class="pdot"></span>
+  <span class="pdot"></span>
+</div>
+
+ <div><h2 style="padding-left: 20px; color: blue; text-align: center; margin-top: 20px;">Treatments </h2></div>
+  <div class="treat" style="flex: 50px;">
+  <div class="treat" id="poster" style="border-radius: 9px;">
+    <div class="box"><img src="C:\Users\admin\OneDrive\Desktop\sample web\images\treat 1.jpg" alt="1"></div>
+    <div class="box"><img src="C:\Users\admin\OneDrive\Desktop\sample web\images\treat 2.jpeg" alt="2"></div>
+    <div class="box"><img src="C:\Users\admin\OneDrive\Desktop\sample web\images\treat 3.avif" alt="3"></div>
+    <div class="box"><img src="C:\Users\admin\OneDrive\Desktop\sample web\images\treat 4.jpg" alt="4"></div>
+    <div class="box"><img src="C:\Users\admin\OneDrive\Desktop\sample web\images\treat 5.webp" alt="5"></div>
+  </div>
+</div>
+
+<div class="tdots" id="dotsContainer">
+  <span class="pdot active"></span>
+  <span class="pdot"></span>
+  <span class="pdot"></span>
+  <span class="pdot"></span>
+  <span class="pdot"></span>
+</div>
+
+<div class="info-container" style="margin-top: 20px;">
+    <div class="info-heading" style="color: blue; font-size: larger;"><h2>Welcome to Apollo Hospital,Chennai</h2></div>
+    <div class="info-content">
+      <div class="info-text">
+        Apollo Hospitals provide world-class healthcare facilities equipped with cutting-edge technology, including advanced operating theatres, intensive care units (ICUs), specialized transplant centers, diagnostic imaging (MRI, CT, PET-CT), and comfortable inpatient rooms. The hospital is designed to offer comprehensive medical services under one roof, ensuring quality care and patient comfort. In emergencies, Apollo offers 24/7 critical care through its well-equipped Accident & Emergency Department, featuring rapid response ambulances, dedicated trauma teams, advanced life-support systems, and tele-ICU services—delivering immediate, expert attention in life-threatening situations.For emergencies, Apollo has a 24x7 Accident & Emergency Department with trained trauma teams, rapid response ambulances, tele-ICU support, and life-saving equipment. They are capable of handling critical conditions like cardiac arrest, stroke, trauma, and poisoning, ensuring immediate and expert care.
+      </div>
+      <img class="info-image" src="C:\Users\admin\OneDrive\Desktop\sample web\images\Apollo-DRDO-Hospitals-Kanchanbagh-Hyderabad_NHT.jpg" alt="Service Image">
+    </div>
+  </div>
+
+
+   <h2 style="margin: 20px; text-align: center;">Real Patients, Real Stories.</h2>
+ <div class="container">
+  <!-- Left: Main YouTube Video -->
+  <div class="main-video">
+    <iframe src="https://www.youtube.com/embed/PnlEIcOku_Y"  allowfullscreen></iframe>
+  </div>
+
+  <!-- Right: Three Small YouTube Videos with Text -->
+  <div class="side-videos">
+    <div class="small-video-container">
+      <iframe src="https://www.youtube.com/embed/0F22yFCRj60" allowfullscreen></iframe>
+      <div class="video-text"> See how quick diagnosis can save lives during trauma cases in emergency rooms.</div>
+    </div>
+    <div class="small-video-container">
+      <iframe src="https://www.youtube.com/embed/c3I-DDY-tmc"  allowfullscreen></iframe>
+      <div class="video-text">Overcoming Cancer with Confidence</div>
+    </div>
+    <div class="small-video-container">
+      <iframe src="https://www.youtube.com/embed/PnlEIcOku_Y" allowfullscreen></iframe>
+      <div class="video-text">Surgery That Changed My Life</div>
+    </div>
+  </div>
+</div>
+
+   <div class="info-container">
+    <div class="info-heading" style="color: blue; text-align: center; padding-left: 200px; font-size: larger;"><h2>Welcome to AIIMS</h2></div>
+    <div class="info-content">
+      <img class="info-image" src="C:\Users\admin\OneDrive\Desktop\sample web\images\aiims.jpeg" alt="Hospital Image">
+      <div class="info-text">
+       All India Institute of Medical Sciences (AIIMS), Bengaluru is a premier public medical institution currently under development with approval from the Union Health Ministry. It is part of the AIIMS network—autonomous, nationally renowned government medical universities recognized as Institutes of National Importance .Advanced hospital facilities across key specialties including cardiology, neurology, oncology, pediatrics and surgery—modeled after the flagship AIIMS Delhi.A comprehensive 24×7 Emergency Medicine Department, designed with triage areas, resuscitation bays, and round‑the‑clock diagnostics & labs. Staffed by senior/junior residents, nurses, and on‑call specialists, it ensures immediate care for critical cases .A sprawling, thoughtfully planned campus with extensive infrastructure: lecture theatres, libraries, student hostels, green zones, and modern diagnostic equipment such as CT, MRI, and ICU setups .
+      </div>
+    </div>
+  </div>
+  
+   <div class="info-container">
+    <div class="info-heading" style="color: blue; font-size: larger;"><h2>Aster Hyderabad</h2></div>
+    <div class="info-content">
+      <div class="info-text" style="margin: 10px;">
+       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, doloribus labore commodi dolore, necessitatibus, quod ad debitis temporibus praesentium nisi impedit fugiat ex unde nemo atque accusantium quisquam maiores sunt cumque autem iure sint eius molestias. Non facilis reiciendis vitae deserunt officia obcaecati, ullam quibusdam modi doloribus architecto voluptatem saepe culpa id repellat dignissimos quasi adipisci. Quis exercitationem fugiat culpa vitae, harum laborum assumenda nemo tempora optio dolore accusantium, quibusdam debitis officia, ad explicabo maxime quaerat voluptas et maiores sed fugit quod quos deleniti! Possimus delectus voluptatibus reprehenderit quis reiciendis distinctio, vitae earum, magnam dolore sed consequatur ut eveniet quaerat laboriosam! Unde eius eligendi rem modi praesentium quae magni nihil ut eaque ducimus rerum consequatur, perferendis quaerat! Recusandae tempora atque quos aut aspernatur libero doloremque corporis excepturi quae porro. Possimus, quidem. Maxime debitis, delectus voluptatum blanditiis pariatur distinctio aspernatur consequuntur in corrupti, animi repellat possimus quibusdam sint natus doloribus aliquid?
+      </div>
+      <img class="info-image" src="C:\Users\admin\OneDrive\Desktop\sample web\images\aster.jpg" alt="Service Image">
+    </div>
+  </div>
+
+ 
+    <div class="info-container">
+    <div class="info-heading" style="color: blue;  text-align: center; padding-left: 200px; font-size: larger;"><h2>Apollo Bangalore</h2></div>
+    <div class="info-content">
+      <img class="info-image" src="C:\Users\admin\OneDrive\Desktop\sample web\images\apollo-hospitals_bannerghatta_road_building-min_0.webp" alt="Hospital Image">
+      <div class="info-text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum dolor omnis impedit ex commodi! Eveniet atque aliquid dolore, blanditiis, magnam itaque obcaecati rerum, nostrum expedita sunt ea architecto facilis. Incidunt rerum commodi blanditiis debitis pariatur eius sit voluptatibus inventore ipsum omnis, rem illum quo veniam, saepe libero alias laudantium harum asperiores porro explicabo, qui officiis? Accusamus nostrum corrupti itaque quae reprehenderit consequatur similique modi velit! Eum a, voluptatibus labore, quaerat reiciendis in optio minima beatae error laborum necessitatibus temporibus illo repellat eaque exercitationem ut velit quibusdam quae, rem doloribus blanditiis numquam porro hic deleniti. Eos, doloribus recusandae! Blanditiis sunt vel, neque alias tempore deleniti nostrum distinctio quasi ab ducimus voluptatum laborum repellat molestias debitis cum. Doloremque minima voluptas aspernatur vel error in quaerat enim distinctio saepe, excepturi maxime reprehenderit suscipit quo alias! Deserunt, facilis nobis dolore facere repellat at corporis odit totam laudantium animi accusamus, soluta rerum incidunt voluptatum itaque?
+      </div>
+    </div>
+  </div>
+
+  <!--footer-->
+  <h2 style="text-align: center;">Our world-class medical experts would be happy to assist you.</h2>
+  <div class="get-in-touch-box"><a href="C:\Users\admin\OneDrive\Desktop\sample web\home.html">Get in Touch</a></div>
+
+  <div class="main-container">
+    <div class="call-number" style="text-align: center;">
+      or Call <span>+918984900900</span>
+    </div>
+
+     <div class="columns">
+      <div class="column">
+        <h3>Treatment in Countries</h3>
+        <ul>
+          <li>Treatment in India</li>
+          <li>Treatment in Turkey</li>
+          <li>Treatment in Singapore</li>
+          <li>Treatment in UAE</li>
+          <li>Treatment in Thailand</li>
+        </ul>
+      </div>
+
+      <div class="column">
+        <h3>View Top Treatments</h3>
+        <ul>
+          <li>Total Hip Replacement</li>
+          <li>Knee Replacement</li>
+          <li>Disc Replacement</li>
+          <li>CABG (Voronary Artery Bypass Grafting)</li>
+          <li>Double Heart Valve Replacement</li>
+          <li>AVR / MVR (Aortic/Mitral Valve Replacement)</li>
+          <li>Pacemaker Implant</li>
+          <li>Kidney Transplant</li>
+          <li>Liver Transplant</li>
+          <li>Bone Marrow Transplant</li>
+          <li>Breast Cancer</li>
+          <li>Colon Cancer</li>
+          <li>Stomach Cancer</li>
+          <li>Cervical Cancer</li>
+          <li>Lung Cancer</li>
+          <li>Prostate Cancer</li>
+          <li>Brain Cancer</li>
+          <li>Deep Brain Stimulation</li>
+        </ul>
+      </div>
+      <div class="column">
+        <h3>Top Doctors By Speciality</h3>
+        <ul>
+          <li>Best Knee Replacement Surgeon in India</li>
+          <li>Best Urologist in India</li>
+          <li>Best Spine Surgeon in India</li>
+          <li>Best ENT Surgeons in India</li>
+          <li>Best Orthopedic Doctor in India</li>
+          <li>Best Cardiologist in India</li>
+          <li>Best Oncologist in India</li>
+          <li>Best Gynecologist in India</li>
+          <li>Best Gastroenterologist in India</li>
+          <li>Best Oncologist in India</li>
+          <li>Best Nephrology Doctors in India</li>
+          <li>Best Cosmetic & Plastic Surgeon in India</li>
+          <li>Best Transplant Surgeon in India</li>
+        </ul>
+      </div>
+      <div class="column">
+        <h3>Top Hospitals</h3>
+        <ul>
+          <li>Apollo Hospital Delhi</li>
+          <li>Medanta Hospital Gurgaon</li>
+          <li>Max Hospital Delhi</li>
+          <li>Jaslok Hospital Mumbai</li>
+          <li>Artemis Hospital Gurgaon</li>
+          <li>Fortis Hospital Gurgaon</li>
+          <li>Manipal Hospitals Dwarka</li>
+          <li>Global Hospital Chennai</li>
+        </ul>
+      </div>
+    </div><hr style=" border:-2; background-color:#666;">
+     <div class="footer">
+    <!-- Contact Section -->
+    <div class="footer-top">
+      <div>📞 +91-8984900900<br>Customer support</div>
+      <div>✉️ helpdesk@marlinmedicalassistance.com<br>Email us at</div>
+      <div>📍 +91-8984900900<br>Call for an appointment</div>
+      <div>📢 Feedback or Questions?</div>
+    </div>
+
+    <!-- Main Footer Content -->
+    <div class="footer-mid">
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li>About us</li>
+          <li>Hospital</li>
+          <li>Doctor</li>
+          <li>Medicine</li>
+          <li>Membership and Organization</li>
+        </ul>
+        <div class="feedback-box">
+          Have a comment, question, or want to share something with us? 💬
+        </div>
+      </div>
+
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li>Add your Hospital</li>
+          <li>Term & condition</li>
+          <li>Privacy-Policy</li>
+          <li>Blog</li>
+          <li>Patient Photos</li>
+        </ul>
+      </div>
+
+      <div class="footer-column connected">
+        <h3>Stay <span>connected</span></h3>
+        <p>Enter your email id for healthcare updates.</p>
+        <div class="email-box">
+          <input type="email" placeholder="Your Email Address">
+          <button>➤</button>
+        </div>
+        <div class="social-icons">
+          <span>📘</span>
+          <span>📸</span>
+          <span>🐦</span>
+          <span>💼</span>
+          <span>▶️</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      Made In NextJs 13, By Digital Transformation Agency - Ima-Appweb.Com
+    </div>
+  </div>
+</body>
+<script>
+let bannerIndex = 0;
+let autoSlideInterval;
+const slider = document.getElementById('slider');
+const dots = document.querySelectorAll('.dot'); // select individual dots
+
+function updateSlider() {
+  slider.style.transform = `translateX(-${bannerIndex * 100}%)`; // use backticks for template literal
+  dots.forEach((dot, index) => {
+    dot.classList.toggle('active', index === bannerIndex);
+  });
+}
+
+function changeSlide(direction) {
+  bannerIndex += direction;
+  if (bannerIndex >= dots.length) {
+    bannerIndex = 0;
+  } else if (bannerIndex < 0) {
+    bannerIndex = dots.length - 1;
+  }
+  updateSlider();
+}
+
+function currentSlide(index) {
+  bannerIndex = index;
+  updateSlider();
+}
+
+function autoSlide() {
+  changeSlide(1);
+}
+
+function startAutoSlide() {
+  autoSlideInterval = setInterval(autoSlide, 30000); // 30 seconds
+}
+
+// Start automatic sliding
+startAutoSlide();
+
+ LetInterval(nextSlide, 4000); // Auto slide every 4 seconds
+updateSlide();
+function toggleDescription(button) {
+  const card = button.closest('.card-content');
+  const shortDesc = card.querySelector('.short');
+  const fullDesc = card.querySelector('.full');
+
+  if (fullDesc.classList.contains('hidden')) {
+    shortDesc.classList.add('hidden');
+    fullDesc.classList.remove('hidden');
+    button.textContent = 'See Less';
+  } else {
+    shortDesc.classList.remove('hidden');
+    fullDesc.classList.add('hidden');
+    button.textContent = 'See More';
+  }
+}
+
+ const slider1 = document.getElementById('slider1');
+function slideLeft() {
+  document.getElementById('slider').scrollBy({
+    left: -320,
+    behavior: 'smooth'
+  });
+}
+
+function slideRight() {
+  document.getElementById('slider').scrollBy({
+    left: 320,
+    behavior: 'smooth'
+  });
+}
+
+ const poster = document.getElementById('poster');
+  const pdots = document.querySelectorAll('.pdot');
+  const boxWidth = 25 + 5; // 25px box + 5px margin
+  let posterIndex = 0;
+
+  function updatePots() {
+    pdots.forEach((pdot, i) => {
+      pdot.classList.toggle('active', i === posterIndex);
+    });
+  }
+
+  function slideBoxes() {
+    poster.style.transition = 'transform 0.5s ease-in-out';
+    poster.style.transform = `translateX(-${boxWidth}px)`;
+
+    // After transition, move the first box to the end
+    setTimeout(() => {
+      poster.style.transition = 'none';
+      const firstBox = poster.firstElementChild;
+      poster.appendChild(firstBox);
+      poster.style.transform = 'translateX(0)';
+      posterIndex = (posterIndex + 1) % pdots.length;
+      updatePdots();
+    }, 500); // matches transition time
+  }
+
+  setInterval(slideBoxes, 3000); // slide every 3 seconds
+
+  
+ </script>
+</html>
